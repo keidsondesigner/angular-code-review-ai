@@ -217,7 +217,7 @@ export class CodeReviewComponent {
 
   async analyzeCode() {
     if (!this.codeInput.trim()) {
-      this.error = 'Please enter some code to analyze';
+      this.error = 'Introduza um código para análise';
       return;
     }
 
