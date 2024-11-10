@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.loading-spinner {
+  @apply animate-spin h-5 w-5 text-blue-600;
+}
+
+.code-input {
+  @apply font-mono bg-gray-900 text-gray-100 p-4 rounded-lg w-full h-64;
+}
+
+.recommendation-card {
+  @apply bg-white p-6 rounded-lg shadow-lg mb-4;
+}
