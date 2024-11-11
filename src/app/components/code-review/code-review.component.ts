@@ -162,6 +162,9 @@ import {
           </div>
         </div>
       </div>
+      <footer class="text-center mt-12 text-sm text-gray-600">
+        <p>Desenvolvido com Angular e Gemini Ai <i class="fas fa-heart text-red-500"></i> por Keidson Roby<p>
+      </footer>
     </div>
   `,
 })
