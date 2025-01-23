@@ -5,11 +5,13 @@ import {
   CodeReviewService,
   CodeAnalysis,
 } from '../../services/code-review.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-code-review',
   standalone: true,
   imports: [CommonModule, FormsModule],
+  providers: [CodeReviewService],
   template: `
     <div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div class="max-w-4xl mx-auto">
@@ -117,12 +119,12 @@ import {
                 >
                   {{ copyStatus }}
                 </button> -->
-
                 <button 
                   (click)="copyImprovedCode()" 
                   class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 
                   
-                  [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 z-10 h-6 w-6 text-zinc-50 hover:bg-zinc-700 hover:text-zinc-50 [&amp;_svg]:h-3 [&amp;_svg]:w-3 absolute right-4 top-4"
+
+                  [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 z-10 h-6 w-6 text-zinc-50 hover:bg-zinc-700 hover:text-zinc-50 [&_svg]:h-3 [&_svg]:w-3 absolute right-4 top-4"
                 >
                   <span class="sr-only">Copy</span>
                   <svg 
@@ -195,12 +197,13 @@ export class CodeReviewComponent {
   selectFramework(framework: string): void {
     this.selectedFramework = framework;
     if (this.analysis) {
-      this.analysis = null; // Limpa a análise anterior ao mudar de framework
+      this.analysis = null;
     }
   }
 
   clearInputTextarea() {
     this.codeInput = '';
+    this.analysis = null;
   }
 
   async copyImprovedCode(): Promise<void> {
@@ -225,10 +228,9 @@ export class CodeReviewComponent {
     }
 
     try {
-      this.error = ''; // Limpa qualquer erro anterior
-      this.analysis = await this.codeReviewService.analyzeCode(
-        this.codeInput,
-        this.selectedFramework
+      this.error = '';
+      this.analysis = await firstValueFrom(
+        this.codeReviewService.analyzeCode(this.codeInput, this.selectedFramework)
       );
     } catch (error) {
       console.error('Error analyzing code:', error);
