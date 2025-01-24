@@ -16,7 +16,7 @@ export interface CodeAnalysis {
   providedIn: 'root',
 })
 export class CodeReviewService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'https://api-keidsonroby-ai.onrender.com';
   private loadingSubject = new BehaviorSubject<boolean>(false);
   private errorSubject = new BehaviorSubject<string>('');
 
